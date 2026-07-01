@@ -21,9 +21,9 @@ endif()
 ## Project related Variables
 ## Also update changelog in debian folder!
 project(xournalpp
-        VERSION 1.3.5
-        DESCRIPTION "Xournal++ - Open source hand note-taking program"
-        HOMEPAGE_URL "https://xournalpp.github.io/"
+        VERSION 1.0.0
+        DESCRIPTION "Cobble - Cloud-enabled note-taking software"
+        HOMEPAGE_URL "https://github.com/T4RuN05/Cobbel"
         LANGUAGES CXX C)
 # according to https://cmake.org/cmake/help/latest/command/project.html we must fix the suffix:
 # And https://gitlab.kitware.com/cmake/cmake/-/issues/16716 is still open:
