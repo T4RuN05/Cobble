@@ -89,7 +89,7 @@ target_include_directories(xournalpp-wrapper PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}
 add_executable(xournalpp exe/Xournalpp.cpp)
 target_link_libraries(xournalpp PRIVATE xoj::core xoj::util)
 set_target_properties(xournalpp PROPERTIES 
-        OUTPUT_NAME "Cobbel"
+        OUTPUT_NAME "Cobble"
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
         MACOSX_BUNDLE $<IF:$<PLATFORM_ID:Darwin>,TRUE,${CMAKE_MACOSX_BUNDLE}>
         WIN32_EXECUTABLE $<IF:$<PLATFORM_ID:Windows>,TRUE,${CMAKE_WIN32_EXECUTABLE}>
