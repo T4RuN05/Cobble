@@ -256,7 +256,7 @@ Section "Cobble" SecXournalpp
 	SetOutPath "$INSTDIR"
 
 	; Files to put into the setup
-	File /r ${SETUP_DIR}\*
+	File /r "${SETUP_DIR}\*"
 
 	; Set install information
 	WriteRegStr SHCTX "Software\Cobble" "" '"$INSTDIR"'
