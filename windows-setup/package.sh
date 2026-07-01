@@ -5,10 +5,10 @@
 # 2. Copy runtime dependencies into setup folder
 # 3. Create version file and execute NSIS to create installer
 
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
     build_dir="$(pwd)"
 else
-    build_dir="$(cd $1; pwd)"
+    build_dir="$(cd "$1"; pwd)"
 fi
 setup_dir_name="dist"  # Same as in xournalpp.nsis
 installer_name="Cobble-Setup.exe"  # Same as in xournalpp.nsis
@@ -28,7 +28,7 @@ mkdir "$setup_dir"
 mkdir "$setup_dir"/lib
 
 echo "copy installed files"
-(cd $build_dir && cmake --install . --prefix "$setup_dir")
+(cd "$build_dir" && cmake --install . --prefix "$setup_dir")
 
 echo "copy libraries"
 ldd "$build_dir/Cobble.exe" | grep "${prefix}.*\.dll" -o | sort -u | xargs -I{} cp "{}" "$setup_dir"/bin/
@@ -42,8 +42,8 @@ for trans in "$build_dir"/po/*.gmo; do
     [ -f "$trans" ] || break;
 
     # Retrieve locale from name of translation file
-    locale=$(basename -s .gmo $trans)
-    locale_no_country=$(echo $locale | sed 's/_.*//')
+    locale=$(basename -s .gmo "$trans")
+    locale_no_country=$(echo "$locale" | sed 's/_.*//')
 
     # GTK / GLib Translation
     for f in "glib20.mo" "gdk-pixbuf.mo" "gtk30.mo" "gtk30-properties.mo"; do
