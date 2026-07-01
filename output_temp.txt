@@ -1,0 +1,224 @@
+
+#### Directory: exe/
+- Xournalpp-wrapper.cpp (9674 bytes): The main application
+- Xournalpp.cpp (1279 bytes): The main application
+- osx\setup-env.cpp (5597 bytes): No description found.
+- osx\setup-env.h (91 bytes): No description found.
+- win32\console.cpp (2951 bytes): No description found.
+- win32\console.h (148 bytes): No description found.
+- win32\gui_main.cpp (358 bytes): No description found.
+- win32\xpp.rc.in (844 bytes): No description found.
+- xournalpp-wrapper.gresource.xml (190 bytes): No description found.
+
+#### Directory: util/
+- Assert.cpp (492 bytes): No description found.
+- CMakeLists.txt (544 bytes): Text / Documentation File
+- Color.cpp (1074 bytes): No description found.
+- ElementRange.cpp (5020 bytes): @brief Parse a string of page ranges.
+- GtkUtil.cpp (9117 bytes): No description found.
+- GzInputStream.cpp (1965 bytes): No description found.
+- GzUtil.cpp (267 bytes): No description found.
+- NamedColor.cpp (2396 bytes): No description found.
+- OutputStream.cpp (2644 bytes): No description found.
+- PathUtil.cpp (18530 bytes): No description found.
+- PlaceholderString.cpp (2863 bytes): No description found.
+- Range.cpp (1950 bytes): No description found.
+- Recolor.cpp (2605 bytes): No description found.
+- SaveNameUtils.cpp (1873 bytes): No description found.
+- Stacktrace.cpp (502 bytes): No description found.
+- StringUtils.cpp (3921 bytes): No description found.
+- Util.cpp (2438 bytes): No description found.
+- VersionInfo.cpp (3551 bytes): No description found.
+- XojMsgBox.cpp (9756 bytes): No description found.
+- XojPreviewExtractor.cpp (5633 bytes): No description found.
+- ZipInputStream.cpp (1623 bytes): No description found.
+- gdk4_helper.cpp (1183 bytes): No description found.
+- gtk4_helper.cpp (8271 bytes): No description found.
+- include\filesystem.h (310 bytes): Paths to resources
+- include\util\Assert.h (783 bytes): assert
+- include\util\BasePointerIterator.h (2589 bytes): Basic iterator based on pointer arithmetics
+- include\util\CircularBuffer.h (1159 bytes): A rudimentary circular buffer
+- include\util\Color.h (9616 bytes): Color utility, does color conversions
+- include\util\DispatchPool.h (4494 bytes): Template class for a dispatch pool and listeners
+- include\util\ElementRange.h (1014 bytes): A page range for PDF export etc. (e.g. 1-2,5,7)
+- include\util\EnumIndexedArray.h (1523 bytes): An array indexed by a CONTIGUOUS scoped enum from 0 to ENUMERATOR_COUNT-1
+- include\util\GListView.h (2755 bytes): GListView, a c++ wrapper around GList
+- include\util\GVariantTemplate.h (4949 bytes): No description found.
+- include\util\GtkUtil.h (2002 bytes): Helper function for setting up some GtkWidget
+- include\util\GzInputStream.h (690 bytes): Input stream for a gzipped file
+- include\util\GzUtil.h (440 bytes): Gzip Helper
+- include\util\InputStream.h (812 bytes): Abstract input stream for reading
+- include\util\Interval.h (3427 bytes): A interval data structure over a numeric data type.
+- include\util\LoopUtil.h (674 bytes): Utility for loops
+- include\util\NamedColor.h (3171 bytes): Part of the customizable toolbars
+- include\util\OutputStream.h (1018 bytes): Output streams for writing
+- include\util\PairView.h (4881 bytes): C++20-like view to iterate on pairs of consecutive elements
+- include\util\PathUtil.h (6625 bytes): Helper for reading / writing files
+- include\util\PlaceholderString.h (4089 bytes): Internationalization module
+- include\util\Point.h (1733 bytes): Range
+- include\util\PointerContainerView.h (4251 bytes): A C++20-style view for containers with values pointer
+- include\util\PopupWindowWrapper.h (2712 bytes): PopupWindow base class
+- include\util\Range.h (1492 bytes): Range
+- include\util\Recolor.h (1565 bytes): Color utility, does color conversions
+- include\util\Rectangle.h (2755 bytes): A rectangle data structure over a numeric data type.
+- include\util\SaveNameUtils.h (1206 bytes): Save-name parsing utility, does wildcard-string to save-name conversions
+- include\util\SmallVector.h (7880 bytes): A small-vector-optimized data structure, with data in the stack when it's small enough, in the heap otherwise
+- include\util\Stacktrace.h (411 bytes): Prints a Stacktrace
+- include\util\StringUtils.h (2037 bytes): String utilities
+- include\util\TinyVector.h (4298 bytes): A tiny vector stored in the stack, with a small maximal size
+- include\util\TypeIfThenElse.h (707 bytes): Helper structures to get various types depending on a boolean value
+- include\util\UnionOfIntervals.h (7725 bytes): A data structure for unions of intervals of a numeric data type.
+- include\util\Util.h (2779 bytes): Xournal util functions
+- include\util\VersionInfo.h (594 bytes): get version info on various components and libraries
+- include\util\ViewIteratorBase.h (2981 bytes): A C++20-style view for containers with values pointer
+- include\util\XojMsgBox.h (3826 bytes): Xournal util functions
+- include\util\XojPreviewExtractor.h (1697 bytes): Extracts a preview of an .xoj file, used by xournalpp-thumbnailer and xournalpp
+- include\util\ZipInputStream.h (1228 bytes): Input stream for a file inside a zip archive
+- include\util\gdk4_helper.h (498 bytes): header for missing gdk4 functions (part of the gtk4 port)
+- include\util\glib_casts.h (5457 bytes): header for casting c++ callbacks into gtk callbacks
+- include\util\gtk4_helper.h (3928 bytes): header for missing gtk4 functions (part of the gtk4 port)
+- include\util\i18n.h (1203 bytes): Internationalization module
+- include\util\logger\Logger.h (469 bytes): Logging class for debugging
+- include\util\move_only_function.h (2295 bytes): Rudimentary port of C++23's std::move_only_function
+- include\util\raii\CLibrariesSPtr.h (3588 bytes): RAII smart pointers for C library classes
+- include\util\raii\CStringWrapper.h (1510 bytes): C-type strings wrapper, taking ownership of the data.
+- include\util\raii\CairoWrappers.h (2100 bytes): RAII wrappers for C library classes
+- include\util\raii\GLibGuards.h (2261 bytes): Basic memory RAII Guards for GLib objects
+- include\util\raii\GObjectSPtr.h (1313 bytes): RAII wrappers for C library classes
+- include\util\raii\GSourceURef.h (1080 bytes): RAII wrapper for g_source
+- include\util\raii\GVariantSPtr.h (1053 bytes): RAII wrappers for C library classes
+- include\util\raii\GtkPaperSizeUPtr.h (648 bytes): RAII wrappers for C library classes
+- include\util\raii\GtkWindowUPtr.h (664 bytes): RAII wrappers for C library classes
+- include\util\raii\IdentityFunction.h (443 bytes): Identity function
+- include\util\raii\PangoSPtr.h (843 bytes): RAII wrappers for C library classes
+- include\util\safe_casts.h (6014 bytes): This file is provided by Fabian Keßler <fabian_kessler@gmx.de> under the
+- include\util\serdesstream.h (367 bytes): @brief Serdes always requires the same locale. Independently of the local / C++ global locale.
+- include\util\serializing\BinObjectEncoding.h (429 bytes): Binary encoded serialized stream
+- include\util\serializing\HexObjectEncoding.h (426 bytes): Hex encoded serialized stream
+- include\util\serializing\InputStreamException.h (560 bytes): Input stream exception
+- include\util\serializing\ObjectEncoding.h (552 bytes): Encoding for serialized streams
+- include\util\serializing\ObjectInputStream.h (2195 bytes): Serialized input stream
+- include\util\serializing\ObjectOutputStream.h (1407 bytes): Serialized output stream
+- include\util\serializing\Serializable.h (535 bytes): Serializable interface
+- include\util\utf8_view.h (7413 bytes): No description found.
+- logger\Logger.cpp (1704 bytes): No description found.
+- raii\CStringWrapper.cpp (986 bytes): No description found.
+- serializing\BinObjectEncoding.cpp (411 bytes): No description found.
+- serializing\HexObjectEncoding.cpp (765 bytes): No description found.
+- serializing\InputStreamException.cpp (401 bytes): No description found.
+- serializing\ObjectEncoding.cpp (386 bytes): No description found.
+- serializing\ObjectInputStream.cpp (6410 bytes): No description found.
+- serializing\ObjectOutputStream.cpp (2360 bytes): No description found.
+
+#### Directory: xoj-preview-extractor/
+- CMakeLists.txt (1897 bytes): Text / Documentation File
+- desktop-install.sh (145 bytes): No description found.
+- xournalpp-thumbnailer-xoj.schemas (767 bytes): No description found.
+- xournalpp-thumbnailer.cpp (7510 bytes): This small program extracts a preview out of a xoj file
+
+#### Directory: test/
+- CMakeLists.txt (4173 bytes): Text / Documentation File
+- README.md (3659 bytes): Text / Documentation File
+- benchmarks\fileLoadBenchmarkTest.cpp (2706 bytes): Fixed input benchmark test of the file loading process
+- config-test.h.in (576 bytes): No description found.
+- files\README (43 bytes): No description found.
+- files\benchmark\handwritten-text.xopp (4327014 bytes): No description found.
+- files\benchmark\latex.xopp (186270 bytes): No description found.
+- files\benchmark\typed-text.xopp (27744 bytes): No description found.
+- files\big-test.xoj (6280518 bytes): No description found.
+- files\cjk\测试.pdf (16346 bytes): No description found.
+- files\cjk\测试.unzipped.xopp (2959 bytes): No description found.
+- files\cjk\测试.xopp (2036 bytes): No description found.
+- files\images\r90.jpg (3887 bytes): No description found.
+- files\load\compatibility\stroke_line_return.xml (1011 bytes): No description found.
+- files\load\compatibility\stroke_line_return.xoj (529 bytes): No description found.
+- files\load\image.xml (39015 bytes): No description found.
+- files\load\image.xopp (28770 bytes): No description found.
+- files\load\latex.xml (24674 bytes): No description found.
+- files\load\latex.xopp (18147 bytes): No description found.
+- files\load\layers.xml (1339 bytes): No description found.
+- files\load\layers.xopp (814 bytes): No description found.
+- files\load\linebreaksLatex.xopp (2825 bytes): No description found.
+- files\load\links.xml (2094 bytes): No description found.
+- files\load\links.xopp (1334 bytes): No description found.
+- files\load\pages.xml (3253 bytes): No description found.
+- files\load\pages.xopp (793 bytes): No description found.
+- files\load\pages.xopp.bg_1.png (375 bytes): No description found.
+- files\load\relativePaths.xopp (434 bytes): No description found.
+- files\load\strokes.xml (41007 bytes): No description found.
+- files\load\strokes.xopp (21179 bytes): No description found.
+- files\load\text.xml (1754 bytes): No description found.
+- files\load\text.xopp (1082 bytes): No description found.
+- files\metadata\1.metadata (64 bytes): No description found.
+- files\metadata\aωkward ⒫ath\2.metadata (66 bytes): No description found.
+- files\no_palettes\empty.txt (0 bytes): Text / Documentation File
+- files\packaged_xopp\audioAttachment\new.xopp (5813 bytes): No description found.
+- files\packaged_xopp\audioAttachment\old.xopp (1729 bytes): No description found.
+- files\packaged_xopp\audioAttachment\test.ogg (14178 bytes): No description found.
+- files\packaged_xopp\big-test.xopp (6249925 bytes): No description found.
+- files\packaged_xopp\imgAttachment\doc_with_jpg.xopp (7154 bytes): No description found.
+- files\packaged_xopp\imgAttachment\new.xopp (32007 bytes): No description found.
+- files\packaged_xopp\imgAttachment\old.xopp (31824 bytes): No description found.
+- files\packaged_xopp\imgBackground\new.xopp (31953 bytes): No description found.
+- files\packaged_xopp\imgBackground\old.xopp (2410 bytes): No description found.
+- files\packaged_xopp\imgBackground\old.xopp.bg_1.png (31666 bytes): No description found.
+- files\packaged_xopp\layer.xopp (1637 bytes): No description found.
+- files\packaged_xopp\pages.xopp (1811 bytes): No description found.
+- files\packaged_xopp\pdfBackground\new.xopp (13645 bytes): No description found.
+- files\packaged_xopp\pdfBackground\old.xopp (1759 bytes): No description found.
+- files\packaged_xopp\pdfBackground\old.xopp.bg.pdf (16346 bytes): No description found.
+- files\packaged_xopp\stroke\new.xopp (2175 bytes): No description found.
+- files\packaged_xopp\stroke\old.xopp (1701 bytes): No description found.
+- files\packaged_xopp\stroke\width_recovery.xopp (3164 bytes): No description found.
+- files\packaged_xopp\suite.xopp (15856 bytes): No description found.
+- files\packaged_xopp\suite_float_bw_compat.xopp (18647 bytes): No description found.
+- files\packaged_xopp\test.xopp (1244 bytes): No description found.
+- files\packaged_xopp\testPreview.xopp (1522 bytes): No description found.
+- files\packaged_xopp\testPreview2.xopp (2183 bytes): No description found.
+- files\packaged_xopp\text.xopp (1780 bytes): No description found.
+- files\pageTypeFormatCopy.xopp (944 bytes): No description found.
+- files\palettes\bad_color_1.gpl (67 bytes): No description found.
+- files\palettes\bad_color_2.gpl (62 bytes): No description found.
+- files\palettes\bad_color_3.gpl (63 bytes): No description found.
+- files\palettes\broken_attribute.gpl (66 bytes): No description found.
+- files\palettes\default.gpl (232 bytes): No description found.
+- files\palettes\empty.gpl (30 bytes): No description found.
+- files\palettes\not_broken_attribute.gpl (63 bytes): No description found.
+- files\palettes\rainbow.gpl (136 bytes): No description found.
+- files\palettes\wrong_header.gpl (66 bytes): No description found.
+- files\palettes\xournal.gpl (260 bytes): No description found.
+- files\palettes\xournalpp.gpl (271 bytes): No description found.
+- files\preview-test-invalid.xoj (1204 bytes): No description found.
+- files\preview-test-no-preview.unzipped.xoj (302 bytes): No description found.
+- files\preview-test.unzipped.xoj (347 bytes): No description found.
+- files\preview-test.xoj (283 bytes): No description found.
+- files\preview-test2.xoj (4530 bytes): No description found.
+- files\test1.unzipped.xoj (986 bytes): No description found.
+- files\test1.xoj (663 bytes): No description found.
+- gtk_tests\dialog\GtkTest.cpp (938 bytes): No description found.
+- gtk_tests\dialog\GtkTest.h (668 bytes): No description found.
+- gtk_tests\dialog\SettingsDialogPaletteTabTest.cpp (2622 bytes): This file is part of the Xournal UnitTests
+- main.cpp (751 bytes): This file is part of the Xournal UnitTests
+- unit_tests\control\ActionDatabaseTest.cpp (4180 bytes): This file is part of the Xournal UnitTests
+- unit_tests\control\LoadHandlerTest.cpp (33915 bytes): This file is part of the Xournal UnitTests
+- unit_tests\control\MetadataManagerTest.cpp (1500 bytes): This file is part of the Xournal UnitTests
+- unit_tests\control\SettingsTest.cpp (5070 bytes): This file is part of the Xournal UnitTests
+- unit_tests\control\ToolEnumsTest.cpp (1106 bytes): This file is part of the Xournal UnitTests
+- unit_tests\model\ColorPaletteTest.cpp (4793 bytes): This file is part of the Xournal UnitTests
+- unit_tests\model\DocumentNameTest.cpp (1327 bytes): This file is part of the Xournal UnitTests
+- unit_tests\model\ErasableStrokeTest.cpp (9756 bytes): No description found.
+- unit_tests\model\ImageTest.cpp (1869 bytes): This file is part of the Xournal UnitTests
+- unit_tests\model\LineStyleTest.cpp (729 bytes): This file is part of the Xournal UnitTests
+- unit_tests\model\StrokeStyleTest.cpp (1606 bytes): This file is part of the Xournal UnitTests
+- unit_tests\util\ColorTest.cpp (1784 bytes): This file is part of the Xournal UnitTests
+- unit_tests\util\ElementRangeTest.cpp (1988 bytes): This file is part of the Xournal UnitTests
+- unit_tests\util\I18nTest.cpp (2163 bytes): This file is part of the Xournal UnitTests
+- unit_tests\util\IntervalTest.cpp (4872 bytes): No description found.
+- unit_tests\util\ObjectIOStreamTest.cpp (16115 bytes): No description found.
+- unit_tests\util\PathTest.cpp (9534 bytes): This file is part of the Xournal UnitTests
+- unit_tests\util\RAIIWrappersTest.cpp (10152 bytes): No description found.
+- unit_tests\util\RangeTest.cpp (2112 bytes): No description found.
+- unit_tests\util\SaveNameUtilsTest.cpp (1221 bytes): This file is part of the Xournal UnitTests
+- unit_tests\util\StringUtilsTest.cpp (4985 bytes): This file is part of the Xournal UnitTests
+- unit_tests\util\TinySmallVectorTest.cpp (12721 bytes): No description found.
+- unit_tests\util\XojPreviewExtractorTest.cpp (3323 bytes): This file is part of the Xournal UnitTests

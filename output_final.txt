@@ -1,0 +1,138 @@
+
+#### Directory: desktop/
+- com.github.xournalpp.xournalpp.desktop.in (514 bytes): OS/Package Setup / Scaffolding
+- com.github.xournalpp.xournalpp.thumbnailer (125 bytes): OS/Package Setup / Scaffolding
+
+#### Directory: linux-setup/
+- build_appimage.sh (2404 bytes): OS/Package Setup / Scaffolding
+
+#### Directory: mac-setup/
+- .gitignore (262 bytes): OS/Package Setup / Scaffolding
+- CI_jhbuild.sh (5511 bytes): OS/Package Setup / Scaffolding
+- Info.plist (6320 bytes): OS/Package Setup / Scaffolding
+- build-app.sh (2301 bytes): OS/Package Setup / Scaffolding
+- build-dmg.sh (1616 bytes): OS/Package Setup / Scaffolding
+- complete-build.sh (1148 bytes): OS/Package Setup / Scaffolding
+- icon\Icon1024.png (56261 bytes): Graphic Asset
+- icon\create-icns.sh (881 bytes): OS/Package Setup / Scaffolding
+- icon\xournalpp.icns (218916 bytes): OS/Package Setup / Scaffolding
+- jhbuild-version.lock (148 bytes): OS/Package Setup / Scaffolding
+- xournalpp.bundle (4266 bytes): OS/Package Setup / Scaffolding
+- xournalpp.modules (6655 bytes): OS/Package Setup / Scaffolding
+
+#### Directory: po/
+- .gitignore (7 bytes): OS/Package Setup / Scaffolding
+- CMakeLists.txt (1563 bytes): OS/Package Setup / Scaffolding
+- README.md (237 bytes): Markdown Documentation
+- af_ZA.po (124998 bytes): Translation Dictionary
+- ar.po (163451 bytes): Translation Dictionary
+- bn_BD.po (119314 bytes): Translation Dictionary
+- ca.po (163768 bytes): Translation Dictionary
+- cs.po (142465 bytes): Translation Dictionary
+- da.po (122932 bytes): Translation Dictionary
+- de.po (159155 bytes): Translation Dictionary
+- el.po (149030 bytes): Translation Dictionary
+- en_GB.po (120073 bytes): Translation Dictionary
+- eo_UY.po (138080 bytes): Translation Dictionary
+- es.po (160899 bytes): Translation Dictionary
+- eu.po (159616 bytes): Translation Dictionary
+- fi.po (120352 bytes): Translation Dictionary
+- fr.po (166104 bytes): Translation Dictionary
+- gl.po (138834 bytes): Translation Dictionary
+- he.po (138999 bytes): Translation Dictionary
+- hi.po (129711 bytes): Translation Dictionary
+- hu.po (163289 bytes): Translation Dictionary
+- id.po (130656 bytes): Translation Dictionary
+- it.po (154697 bytes): Translation Dictionary
+- its\Readme.md (335 bytes): Markdown Documentation
+- its\shared-mime-info.its (475 bytes): OS/Package Setup / Scaffolding
+- its\shared-mime-info.loc (208 bytes): OS/Package Setup / Scaffolding
+- ja.po (141029 bytes): Translation Dictionary
+- ka_GE.po (122235 bytes): Translation Dictionary
+- ko.po (132193 bytes): Translation Dictionary
+- ml_IN.po (166468 bytes): Translation Dictionary
+- nl.po (132064 bytes): Translation Dictionary
+- no.po (120977 bytes): Translation Dictionary
+- pl.po (143942 bytes): Translation Dictionary
+- pt_BR.po (156928 bytes): Translation Dictionary
+- pt_PT.po (130515 bytes): Translation Dictionary
+- ro.po (161031 bytes): Translation Dictionary
+- ru.po (166866 bytes): Translation Dictionary
+- si_LK.po (119419 bytes): Translation Dictionary
+- sl_SI.po (147954 bytes): Translation Dictionary
+- sv.po (136409 bytes): Translation Dictionary
+- ta_IN.po (117771 bytes): Translation Dictionary
+- th.po (124466 bytes): Translation Dictionary
+- tr.po (151064 bytes): Translation Dictionary
+- uk_UA.po (166445 bytes): Translation Dictionary
+- vi.po (131313 bytes): Translation Dictionary
+- xournalpp.pot (118864 bytes): OS/Package Setup / Scaffolding
+- zh.po (151820 bytes): Translation Dictionary
+- zh_HK.po (123190 bytes): Translation Dictionary
+- zh_TW.po (136489 bytes): Translation Dictionary
+
+#### Directory: rpm/
+- fedora\xournalpp.spec (4818 bytes): OS/Package Setup / Scaffolding
+
+#### Directory: scripts/
+- color-names (1403 bytes): OS/Package Setup / Scaffolding
+- compare_license.py (9212 bytes): OS/Package Setup / Scaffolding
+- lua_def_file.py (10291 bytes): OS/Package Setup / Scaffolding
+- release_helper.sh (23878 bytes): OS/Package Setup / Scaffolding
+
+#### Directory: readme/
+- Compile.md (1587 bytes): Markdown Documentation
+- LinuxBuild.md (5377 bytes): Markdown Documentation
+- MacBuild.md (14084 bytes): Markdown Documentation
+- Releases.md (8551 bytes): Markdown Documentation
+- WindowsBuild.md (1659 bytes): Markdown Documentation
+- WindowsBuildArm.md (1782 bytes): Markdown Documentation
+- background.png (95042 bytes): Graphic Asset
+- floatingtoolbox.png (32385 bytes): Graphic Asset
+- floatingtoolboxmbmenu.png (3103 bytes): Graphic Asset
+- layer.png (105634 bytes): Graphic Asset
+- main-mac.png (341986 bytes): Graphic Asset
+- main-win.png (148377 bytes): Graphic Asset
+- main.png (167390 bytes): Graphic Asset
+- moreexperimentals.png (28043 bytes): Graphic Asset
+- toolbar.png (120319 bytes): Graphic Asset
+
+#### Directory: resources/
+- default_template.tex (1255 bytes): OS/Package Setup / Scaffolding
+- legacy_template.tex (1037 bytes): OS/Package Setup / Scaffolding
+
+#### Directory: resources-templates/
+- com.github.xournalpp.xournalpp.appdata.xml.in (6525 bytes): OS/Package Setup / Scaffolding
+- com.github.xournalpp.xournalpp.xml.in (513 bytes): OS/Package Setup / Scaffolding
+- pagetemplates.ini.in (754 bytes): OS/Package Setup / Scaffolding
+- toolbar.ini.in (9886 bytes): OS/Package Setup / Scaffolding
+
+#### Directory: palettes/
+- xournal.gpl (260 bytes): GIMP Color Palette
+- xournalpp.gpl (271 bytes): GIMP Color Palette
+
+#### Directory: man/
+- CMakeLists.txt (2044 bytes): OS/Package Setup / Scaffolding
+- extra.groff (441 bytes): OS/Package Setup / Scaffolding
+
+#### Directory: debian/
+- .gitignore (81 bytes): OS/Package Setup / Scaffolding
+- changelog (12842 bytes): OS/Package Setup / Scaffolding
+- compat (4 bytes): OS/Package Setup / Scaffolding
+- control (3079 bytes): OS/Package Setup / Scaffolding
+- copyright (1127 bytes): OS/Package Setup / Scaffolding
+- docs (11 bytes): OS/Package Setup / Scaffolding
+- links (0 bytes): OS/Package Setup / Scaffolding
+- rules (306 bytes): OS/Package Setup / Scaffolding
+- source\format (13 bytes): OS/Package Setup / Scaffolding
+
+#### Directory: cmake/
+- README.md (3001 bytes): Markdown Documentation
+- VERSION.in (76 bytes): OS/Package Setup / Scaffolding
+- cmake_uninstall.cmake.in (2081 bytes): OS/Package Setup / Scaffolding
+- find\Gettext.cmake (23990 bytes): OS/Package Setup / Scaffolding
+- include\Copyright.txt (1554 bytes): OS/Package Setup / Scaffolding
+- include\GitRepo.cmake (2023 bytes): OS/Package Setup / Scaffolding
+- include\Version.cmake (3625 bytes): OS/Package Setup / Scaffolding
+- include\clang-tidy.cmake (1283 bytes): OS/Package Setup / Scaffolding
+- postinst.in (459 bytes): OS/Package Setup / Scaffolding
