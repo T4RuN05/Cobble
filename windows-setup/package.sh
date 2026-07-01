@@ -13,7 +13,7 @@ fi
 setup_dir_name="dist"  # Same as in xournalpp.nsis
 installer_name="Cobble-Setup.exe"  # Same as in xournalpp.nsis
 setup_dir="$build_dir/$setup_dir_name"
-script_dir=$(dirname $(readlink -f "$0"))
+script_dir="$(dirname "$(readlink -f "$0")")"
 echo "Installing to $setup_dir and making installer $build_dir/$installer_name"
 
 prefix=${MSYSTEM_PREFIX:-/mingw64}
