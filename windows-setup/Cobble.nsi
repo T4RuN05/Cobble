@@ -1,5 +1,5 @@
-; Xournal++ NSIS installation script for Windows
-; Author: The Xournal++ Team
+; Cobble NSIS installation script for Windows
+; Author: The Cobble Team
 
 ;--------------------------------
 ; NSIS setup
@@ -15,8 +15,8 @@ Unicode true
 !include nsDialogs.nsh
 
 ; Options for MultiUser plugin
-!define MULTIUSER_INSTALLMODE_INSTDIR "Xournal++"
-!define MULTIUSER_INSTALLMODE_INSTDIR_REGISTRY_KEY "Software\Xournal++"
+!define MULTIUSER_INSTALLMODE_INSTDIR "Cobble"
+!define MULTIUSER_INSTALLMODE_INSTDIR_REGISTRY_KEY "Software\Cobble"
 
 !define MULTIUSER_EXECUTIONLEVEL Highest ; Mixed-mode installer that can both be per-machine or per-user
 !define MULTIUSER_MUI
@@ -34,7 +34,7 @@ Function .onInit
 		SetRegView 64
 	${Else}
 		# 32 bit code
-		MessageBox MB_OK "Xournal++ requires 64-bit Windows. Sorry!"
+		MessageBox MB_OK "Cobble requires 64-bit Windows. Sorry!"
 		Abort
 	${EndIf}
 
@@ -47,7 +47,7 @@ Function un.onInit
 		SetRegView 64
 	${Else}
 		# 32 bit code
-		MessageBox MB_OK "Xournal++ requires 64-bit Windows. Sorry!"
+		MessageBox MB_OK "Cobble requires 64-bit Windows. Sorry!"
 		Abort
 	${EndIf}
 
@@ -55,7 +55,7 @@ Function un.onInit
 FunctionEnd
 
 ; Name and file
-Name "Xournal++ ${XOURNALPP_VERSION}"
+Name "Cobble ${XOURNALPP_VERSION}"
 OutFile "${OUTPUT_INSTALLER_FILE}"
 
 ;--------------------------------
@@ -79,9 +79,9 @@ Var StartMenuFolder
 
 ;Start Menu Folder Page Configuration
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT "SHCTX"
-!define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\Xournal++"
+!define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\Cobble"
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "StartMenuEntry"
-!define MUI_STARTMENUPAGE_DEFAULTFOLDER "Xournal++"
+!define MUI_STARTMENUPAGE_DEFAULTFOLDER "Cobble"
 
 !insertmacro MUI_PAGE_STARTMENU Application $StartMenuFolder
 
@@ -100,7 +100,7 @@ Var StartMenuFolder
 
 Var IsLegacyInstall
 Section "" SecUninstallPrevious
-	ReadRegStr $R0 SHCTX "Software\Xournal++" ""
+	ReadRegStr $R0 SHCTX "Software\Cobble" ""
 	${If} $R0 == ""
 		; check for legacy installation
 		ReadRegStr $R0 HKCU "Software\Xournalpp" ""
@@ -125,13 +125,13 @@ Section "" SecUninstallPrevious
 			DetailPrint "Removing old start menu entries"
 
 			!insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
-			Delete "$SMPROGRAMS\$StartMenuFolder\Xournal++.lnk"
+			Delete "$SMPROGRAMS\$StartMenuFolder\Cobble.lnk"
 			Delete "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk"
 			RMDir "$SMPROGRAMS\$StartMenuFolder"
 			
 			DetailPrint "Removing old registry keys"
-			DeleteRegKey HKLM "Software\Classes\Xournal++ file"
-			DeleteRegKey HKLM "Software\Classes\Xournal++ Template Files"
+			DeleteRegKey HKLM "Software\Classes\Cobble file"
+			DeleteRegKey HKLM "Software\Classes\Cobble Template Files"
 			DeleteRegKey HKLM "Software\Classes\Xournal file"
 			DeleteRegKey HKCU "Software\Xournalpp"
 		${EndIf}
@@ -148,7 +148,7 @@ SectionEnd
 
 !macro RegisterExt EXT PROGID
 	WriteRegStr SHCTX "Software\Classes\${EXT}\OpenWithProgIds" "${PROGID}" ""
-	WriteRegStr SHCTX "Software\Classes\Applications\xournalpp.exe\SupportedTypes" "${EXT}" ""
+	WriteRegStr SHCTX "Software\Classes\Applications\Cobble.exe\SupportedTypes" "${EXT}" ""
 !macroend
 
 !macro AddProgId PROGID CMD DESC
@@ -157,7 +157,7 @@ SectionEnd
 	WriteRegStr SHCTX "Software\Classes\${PROGID}\DefaultIcon" "" '"${CMD}",0'
 	WriteRegStr SHCTX "Software\Classes\${PROGID}\shell" "" "open"
 	WriteRegStr SHCTX "Software\Classes\${PROGID}\shell\open\command" "" '"${CMD}" "%1"'
-	WriteRegStr SHCTX "Software\Classes\${PROGID}\shell\edit" "" "Edit with Xournal++"
+	WriteRegStr SHCTX "Software\Classes\${PROGID}\shell\edit" "" "Edit with Cobble"
 	WriteRegStr SHCTX "Software\Classes\${PROGID}\shell\edit\command" "" '"${CMD}" "%1"'
 !macroend
 
@@ -187,16 +187,16 @@ SectionEnd
 ;-------------------------------
 ; Installer Sections
 
-Section "Associate .xopp files with Xournal++" SecFileXopp
-	!insertmacro SetDefaultExt ".xopp" "Xournal++.File"
+Section "Associate .xopp files with Cobble" SecFileXopp
+	!insertmacro SetDefaultExt ".xopp" "Cobble.File"
 SectionEnd
 
-Section "Associate .xopt files with Xournal++" SecFileXopt
-	!insertmacro SetDefaultExt ".xopt" "Xournal++.Template"
+Section "Associate .xopt files with Cobble" SecFileXopt
+	!insertmacro SetDefaultExt ".xopt" "Cobble.Template"
 SectionEnd
 
-Section "Associate .xoj files with Xournal++" SecFileXoj
-	!insertmacro SetDefaultExt ".xoj" "Xournal++.Xournal"
+Section "Associate .xoj files with Cobble" SecFileXoj
+	!insertmacro SetDefaultExt ".xoj" "Cobble.Xournal"
 SectionEnd
 
 Function OnDirectoryLeave
@@ -244,12 +244,12 @@ Function .onVerifyInstDir
     ; Get last component of path
     ${GetFileName} $INSTDIR $0
     
-    ${If} $0 != "Xournal++"
-        StrCpy $INSTDIR "$INSTDIR\Xournal++"
+    ${If} $0 != "Cobble"
+        StrCpy $INSTDIR "$INSTDIR\Cobble"
     ${EndIf}
 FunctionEnd
 
-Section "Xournal++" SecXournalpp
+Section "Cobble" SecXournalpp
 	; Required
 	SectionIn RO
 
@@ -259,47 +259,47 @@ Section "Xournal++" SecXournalpp
 	File /r ${SETUP_DIR}\*
 
 	; Set install information
-	WriteRegStr SHCTX "Software\Xournal++" "" '"$INSTDIR"'
+	WriteRegStr SHCTX "Software\Cobble" "" '"$INSTDIR"'
 
 	; Set program information
-	WriteRegStr SHCTX "Software\Classes\Applications\xournalpp.exe" "" '"$INSTDIR\bin\xournalpp-wrapper.exe"'
-	WriteRegStr SHCTX "Software\Classes\Applications\xournalpp.exe" "FriendlyAppName" "Xournal++"
-	WriteRegExpandStr SHCTX "Software\Classes\Applications\xournalpp.exe" "DefaultIcon" '"$INSTDIR\bin\xournalpp-wrapper.exe",0'
-	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\App Paths\xournalpp.exe" "" '"$INSTDIR\bin\xournalpp-wrapper.exe"'
+	WriteRegStr SHCTX "Software\Classes\Applications\Cobble.exe" "" '"$INSTDIR\bin\Cobble.exe"'
+	WriteRegStr SHCTX "Software\Classes\Applications\Cobble.exe" "FriendlyAppName" "Cobble"
+	WriteRegExpandStr SHCTX "Software\Classes\Applications\Cobble.exe" "DefaultIcon" '"$INSTDIR\bin\Cobble.exe",0'
+	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\App Paths\Cobble.exe" "" '"$INSTDIR\bin\Cobble.exe"'
 
 	; Add file type information
-	!insertmacro RegisterExt ".xopp" "Xournal++.File"
-	!insertmacro RegisterExt ".xopt" "Xournal++.Template"
-	!insertmacro RegisterExt ".xoj" "Xournal++.Xournal"
-	!insertmacro RegisterExt ".pdf" "Xournal++.AnnotatePdf"
+	!insertmacro RegisterExt ".xopp" "Cobble.File"
+	!insertmacro RegisterExt ".xopt" "Cobble.Template"
+	!insertmacro RegisterExt ".xoj" "Cobble.Xournal"
+	!insertmacro RegisterExt ".pdf" "Cobble.AnnotatePdf"
 	push $R0
-	StrCpy $R0 "$INSTDIR\bin\xournalpp-wrapper.exe"
-	!insertmacro AddProgId "Xournal++.File" "$R0" "Xournal++ file"
-	!insertmacro AddProgId "Xournal++.Template" "$R0" "Xournal++ template file"
-	!insertmacro AddProgId "Xournal++.Xournal" "$R0" "Xournal file"
-	!insertmacro AddProgId "Xournal++.AnnotatePdf" "$R0" "PDF file"
+	StrCpy $R0 "$INSTDIR\bin\Cobble.exe"
+	!insertmacro AddProgId "Cobble.File" "$R0" "Cobble file"
+	!insertmacro AddProgId "Cobble.Template" "$R0" "Cobble template file"
+	!insertmacro AddProgId "Cobble.Xournal" "$R0" "Xournal file"
+	!insertmacro AddProgId "Cobble.AnnotatePdf" "$R0" "PDF file"
 	pop $R0
 
 	; Create uninstaller
 	WriteUninstaller "$INSTDIR\Uninstall.exe"
 	; Add uninstall entry. See https://docs.microsoft.com/en-us/windows/win32/msi/uninstall-registry-key
-	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Xournal++" "DisplayIcon" '"$INSTDIR\bin\xournalpp-wrapper.exe"'
-	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Xournal++" "DisplayName" "Xournal++"
-	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Xournal++" "DisplayVersion" "${XOURNALPP_VERSION}"
-	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Xournal++" "Publisher" "The Xournal++ Team"
-	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Xournal++" "URLInfoAbout" "https://xournalpp.github.io"
-	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Xournal++" "InstallLocation" '"$INSTDIR"'
-	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Xournal++" "UninstallString" '"$INSTDIR\Uninstall.exe"'
-	WriteRegDWORD SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Xournal++" "NoModify" 1
-	WriteRegDWORD SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Xournal++" "NoRepair" 1
+	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Cobble" "DisplayIcon" '"$INSTDIR\bin\Cobble.exe"'
+	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Cobble" "DisplayName" "Cobble"
+	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Cobble" "DisplayVersion" "${XOURNALPP_VERSION}"
+	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Cobble" "Publisher" "The Cobble Team"
+	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Cobble" "URLInfoAbout" "https://Cobble.github.io"
+	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Cobble" "InstallLocation" '"$INSTDIR"'
+	WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Cobble" "UninstallString" '"$INSTDIR\Uninstall.exe"'
+	WriteRegDWORD SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Cobble" "NoModify" 1
+	WriteRegDWORD SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Cobble" "NoRepair" 1
 
 	!insertmacro MUI_STARTMENU_WRITE_BEGIN Application
 		;Create shortcuts
 		CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
-		CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Xournal++.lnk" '"$INSTDIR\bin\xournalpp-wrapper.exe"'
+		CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Cobble.lnk" '"$INSTDIR\bin\Cobble.exe"'
 		CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk" '"$INSTDIR\Uninstall.exe"'
 		
-		!insertmacro RefreshShellIconCreate "$SMPROGRAMS\$StartMenuFolder\Xournal++.lnk"
+		!insertmacro RefreshShellIconCreate "$SMPROGRAMS\$StartMenuFolder\Cobble.lnk"
 	!insertmacro MUI_STARTMENU_WRITE_END
 
 	!insertmacro RefreshShellIcons
@@ -309,10 +309,10 @@ SectionEnd
 ; Descriptions
 
 ; Language strings
-LangString DESC_SecXournalpp ${LANG_ENGLISH} "Xournal++ executable"
-LangString DESC_SecFileXopp ${LANG_ENGLISH} "Open .xopp files with Xournal++"
-LangString DESC_SecFileXopt ${LANG_ENGLISH} "Open .xopt files with Xournal++"
-LangString DESC_SecFileXoj ${LANG_ENGLISH} "Open .xoj files with Xournal++"
+LangString DESC_SecXournalpp ${LANG_ENGLISH} "Cobble executable"
+LangString DESC_SecFileXopp ${LANG_ENGLISH} "Open .xopp files with Cobble"
+LangString DESC_SecFileXopt ${LANG_ENGLISH} "Open .xopt files with Cobble"
+LangString DESC_SecFileXoj ${LANG_ENGLISH} "Open .xoj files with Cobble"
 
 ; Assign language strings to sections
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
@@ -330,7 +330,7 @@ Section "Uninstall"
 	SetRegView 64
 
 	; FIXME: ask if the user wants to uninstall the user or system wide install
-	ReadRegStr $0 HKCU "Software\Xournal++" ""
+	ReadRegStr $0 HKCU "Software\Cobble" ""
 	${IF} $0 == ""
 		SetShellVarContext all
 	${ELSE}
@@ -338,19 +338,19 @@ Section "Uninstall"
 	${ENDIF}
 
 	; Remove registry keys
-	DeleteRegKey SHCTX "Software\Xournal++"
-	DeleteRegKey SHCTX "Software\Classes\Applications\xournalpp.exe"
-	DeleteRegKey SHCTX "Software\Microsoft\Windows\CurrentVersion\App Paths\xournalpp.exe"
-	DeleteRegKey SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Xournal++"
+	DeleteRegKey SHCTX "Software\Cobble"
+	DeleteRegKey SHCTX "Software\Classes\Applications\Cobble.exe"
+	DeleteRegKey SHCTX "Software\Microsoft\Windows\CurrentVersion\App Paths\Cobble.exe"
+	DeleteRegKey SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\Cobble"
 
-	!insertmacro DeleteProgId "Xournal++.File"
-	!insertmacro DeleteProgId "Xournal++.Template"
-	!insertmacro DeleteProgId "Xournal++.Xournal"
-	!insertmacro DeleteProgId "Xournal++.AnnotatePdf"
+	!insertmacro DeleteProgId "Cobble.File"
+	!insertmacro DeleteProgId "Cobble.Template"
+	!insertmacro DeleteProgId "Cobble.Xournal"
+	!insertmacro DeleteProgId "Cobble.AnnotatePdf"
 
 	; Clean up start menu
 	!insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
-	Delete "$SMPROGRAMS\$StartMenuFolder\Xournal++.lnk"
+	Delete "$SMPROGRAMS\$StartMenuFolder\Cobble.lnk"
 	Delete "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk"
 	RMDir "$SMPROGRAMS\$StartMenuFolder"
 
@@ -362,6 +362,6 @@ Section "Uninstall"
 	Delete "$INSTDIR\Uninstall.exe"
 	RMDir "$INSTDIR"
 
-	!insertmacro RefreshShellIconDelete "$SMPROGRAMS\$StartMenuFolder\Xournal++.lnk"
+	!insertmacro RefreshShellIconDelete "$SMPROGRAMS\$StartMenuFolder\Cobble.lnk"
 	!insertmacro RefreshShellIcons
 SectionEnd

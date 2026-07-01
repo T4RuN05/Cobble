@@ -11,7 +11,7 @@ else
     build_dir="$(cd $1; pwd)"
 fi
 setup_dir_name="dist"  # Same as in xournalpp.nsis
-installer_name="xournalpp-setup.exe"  # Same as in xournalpp.nsis
+installer_name="Cobble-Setup.exe"  # Same as in xournalpp.nsis
 setup_dir="$build_dir/$setup_dir_name"
 script_dir=$(dirname $(readlink -f "$0"))
 echo "Installing to $setup_dir and making installer $build_dir/$installer_name"
@@ -31,9 +31,9 @@ echo "copy installed files"
 (cd $build_dir && cmake --install . --prefix "$setup_dir")
 
 echo "copy libraries"
-ldd "$build_dir/xournalpp.exe" | grep "${prefix}.*\.dll" -o | sort -u | xargs -I{} cp "{}" "$setup_dir"/bin/
+ldd "$build_dir/Cobble.exe" | grep "${prefix}.*\.dll" -o | sort -u | xargs -I{} cp "{}" "$setup_dir"/bin/
 # CI workaround: copy libcrypto and libssl in case they are not already copied.
-ldd "$build_dir/xournalpp.exe" | grep -E 'lib(ssl|crypto)[^\.]*\.dll' -o | sort -u | xargs -I{} cp "${prefix}/bin/{}" "$setup_dir"/bin/
+ldd "$build_dir/Cobble.exe" | grep -E 'lib(ssl|crypto)[^\.]*\.dll' -o | sort -u | xargs -I{} cp "${prefix}/bin/{}" "$setup_dir"/bin/
 
 echo "Installing GTK/Glib translations"
 # Copy system locale files
@@ -103,7 +103,7 @@ version=$(cat "$build_dir/VERSION" | sed '1!d')
     -DSETUP_DIR="$setup_dir"                               \
     -DOUTPUT_INSTALLER_FILE="$build_dir/$installer_name"   \
     -DSCRIPT_DIR="$script_dir"                             \
-    "$script_dir/xournalpp.nsi"
+    "$script_dir/Cobble.nsi"
 
 echo "finished"
 
