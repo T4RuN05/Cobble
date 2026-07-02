@@ -109,7 +109,8 @@ if (WIN32)
     add_custom_command (
                 OUTPUT ${RESIZED_ICON}
                 COMMAND magick convert ${PROJECT_SOURCE_DIR}/ui/pixmaps/com.github.xournalpp.xournalpp.png -resize ${SIZE}x${SIZE} ${RESIZED_ICON}
-	)
+                DEPENDS ${PROJECT_SOURCE_DIR}/ui/pixmaps/com.github.xournalpp.xournalpp.png
+    )
   set (ICON_DEPS ${ICON_DEPS} ${RESIZED_ICON})
   unset (RESIZED_ICON)
   endforeach()
