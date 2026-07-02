@@ -72,14 +72,14 @@ jobs:
           export VERSION=$(cat VERSION | sed '1q;d')
           export ARCH=$(cat VERSION | sed '4q;d')
           export FULL_VERSION_STRING="$VERSION${{ inputs.artifact_version_suffix }}"
-          export INSTALLER_FILENAME="xournalpp-$FULL_VERSION_STRING-windows-setup-$ARCH.exe"
+          export INSTALLER_FILENAME="Cobble-$FULL_VERSION_STRING-windows-setup-$ARCH.exe"
 
-          mv xournalpp-setup.exe "$INSTALLER_FILENAME"
+          mv Cobble-Setup.exe "$INSTALLER_FILENAME"
           echo "artifact=$INSTALLER_FILENAME" >> $GITHUB_OUTPUT
 
           if [ ${{ inputs.publish_portable_version }} ]; then
             mkdir portable_content/
-            mv dist "portable_content/xournalpp-$FULL_VERSION_STRING-windows-portable-$ARCH"
+            mv dist "portable_content/Cobble-$FULL_VERSION_STRING-windows-portable-$ARCH"
           fi
       - name: 'Publish package'
         id: publish
