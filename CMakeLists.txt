@@ -402,9 +402,9 @@ install(DIRECTORY palettes
 if (${INSTALL_DESKTOP_FILES})
     message("Installing desktop files")
 
-    # Install icons
-    install(FILES ui/pixmaps/com.github.xournalpp.xournalpp.svg
-            DESTINATION share/icons/hicolor/scalable/apps)
+    # Install icons (using PNG now)
+    install(FILES ui/pixmaps/com.github.xournalpp.xournalpp.png
+            DESTINATION share/icons/hicolor/256x256/apps)
     install(FILES ui/pixmaps/application-x-xopp.svg
             DESTINATION share/icons/hicolor/scalable/mimetypes/)
     install(FILES ui/pixmaps/application-x-xopt.svg
