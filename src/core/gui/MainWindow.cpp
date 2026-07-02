@@ -60,6 +60,12 @@ using std::string;
 
 static void themeCallback(GObject*, GParamSpec*, gpointer data) { static_cast<MainWindow*>(data)->updateColorscheme(); }
 
+#ifdef _WIN32
+#include <windows.h>
+#include <gdk/gdkwin32.h>
+typedef HRESULT(WINAPI *DwmSetWindowAttributeFunc)(HWND hwnd, DWORD dwAttribute, LPCVOID pvAttribute, DWORD cbAttribute);
+#endif
+
 MainWindow::MainWindow(GladeSearchpath* gladeSearchPath, Control* control, GtkApplication* parent):
         GladeGui(gladeSearchPath, "main.glade", "mainWindow"),
         control(control),
@@ -85,6 +91,11 @@ MainWindow::MainWindow(GladeSearchpath* gladeSearchPath, Control* control, GtkAp
     initXournalWidget();
 
     setSidebarVisible(control->getSettings()->isSidebarVisible());
+
+    g_signal_connect(this->window, "realize", G_CALLBACK(+[](GtkWidget* widget, gpointer self) {
+        auto win = static_cast<MainWindow*>(self);
+        win->updateColorscheme();
+    }), this);
 
     // Window handler
     g_signal_connect(this->window, "delete-event", xoj::util::wrap_for_g_callback_v<deleteEventCallback>,
@@ -304,6 +315,25 @@ void MainWindow::updateColorscheme() {
     }
     g_signal_handlers_unblock_by_func(gtk_widget_get_settings(this->window), reinterpret_cast<gpointer>(themeCallback),
                                       this);
+
+#ifdef _WIN32
+    if (this->window) {
+        GdkWindow* gdk_win = gtk_widget_get_window(GTK_WIDGET(this->window));
+        if (gdk_win && GDK_IS_WIN32_WINDOW(gdk_win)) {
+            HWND hwnd = gdk_win32_window_get_impl_hwnd(gdk_win);
+            HMODULE hDwmapi = LoadLibraryA("dwmapi.dll");
+            if (hDwmapi) {
+                auto setAttr = (DwmSetWindowAttributeFunc)GetProcAddress(hDwmapi, "DwmSetWindowAttribute");
+                if (setAttr) {
+                    BOOL isDark = this->darkMode ? TRUE : FALSE;
+                    setAttr(hwnd, 20, &isDark, sizeof(isDark)); // DWMWA_USE_IMMERSIVE_DARK_MODE for newer Win10/11
+                    setAttr(hwnd, 19, &isDark, sizeof(isDark)); // older Win10
+                }
+                FreeLibrary(hDwmapi);
+            }
+        }
+    }
+#endif
 }
 
 void MainWindow::initXournalWidget() {

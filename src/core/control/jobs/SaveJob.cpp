@@ -22,82 +22,13 @@
 #include "view/DocumentView.h"            // for DocumentView
 
 #include "filesystem.h"  // for path, filesystem_error, remove
+#include "cobble/CobbleSyncEngine.h" // for robust cloud sync
 
 // ============================================================
-// Cobble Cloud Sync — GTK modal helpers
-// All GTK operations MUST run on the GTK main thread.
-// We use g_idle_add() to schedule them from the BlockingJob
-// worker thread, and std::promise/future to enforce ordering.
+// Cobble Cloud Sync
+// GTK modal helpers and subprocess logic have been moved
+// to src/core/cobble/CobbleSyncEngine.cpp
 // ============================================================
-namespace {
-
-struct CobbleSpinnerData {
-    GtkWindow* parent;
-    std::promise<GtkWidget*> dlgPromise;
-};
-
-struct CobbleResultData {
-    GtkWidget* spinnerDlg;
-    GtkWindow* parent;
-    bool success;
-};
-
-// Called on GTK main thread: builds and shows the spinner dialog.
-static gboolean cobble_show_spinner(gpointer data) {
-    auto* sd = static_cast<CobbleSpinnerData*>(data);
-
-    GtkWidget* dlg = gtk_dialog_new();
-    gtk_window_set_title(GTK_WINDOW(dlg), "Cobble Sync");
-    gtk_window_set_transient_for(GTK_WINDOW(dlg), sd->parent);
-    gtk_window_set_modal(GTK_WINDOW(dlg), TRUE);
-    gtk_window_set_deletable(GTK_WINDOW(dlg), FALSE);
-    gtk_window_set_resizable(GTK_WINDOW(dlg), FALSE);
-    gtk_window_set_default_size(GTK_WINDOW(dlg), 260, 120);
-
-    GtkWidget* content = gtk_dialog_get_content_area(GTK_DIALOG(dlg));
-    GtkWidget* vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 14);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 22);
-
-    GtkWidget* spinner = gtk_spinner_new();
-    gtk_spinner_start(GTK_SPINNER(spinner));
-    gtk_widget_set_size_request(spinner, 40, 40);
-    gtk_box_pack_start(GTK_BOX(vbox), spinner, FALSE, FALSE, 0);
-
-    GtkWidget* lbl = gtk_label_new("Syncing to Cobble Cloud…");
-    gtk_box_pack_start(GTK_BOX(vbox), lbl, FALSE, FALSE, 0);
-
-    gtk_container_add(GTK_CONTAINER(content), vbox);
-    gtk_widget_show_all(dlg);
-
-    // Signal the worker thread that the dialog is ready
-    sd->dlgPromise.set_value(dlg);
-    delete sd;
-    return FALSE;
-}
-
-// Called on GTK main thread: destroys spinner, shows success/failure.
-static gboolean cobble_show_result(gpointer data) {
-    auto* cd = static_cast<CobbleResultData*>(data);
-    gtk_widget_destroy(cd->spinnerDlg);
-
-    GtkWidget* resultDlg = gtk_message_dialog_new(
-        cd->parent,
-        GTK_DIALOG_MODAL,
-        cd->success ? GTK_MESSAGE_INFO : GTK_MESSAGE_WARNING,
-        GTK_BUTTONS_OK,
-        "%s",
-        cd->success ? "\xE2\x9C\x93  Synced to Cobble Cloud!"
-                    : "\xE2\x9A\xA0  Cloud sync failed. File saved locally."
-    );
-    gtk_window_set_title(GTK_WINDOW(resultDlg), "Cobble Sync");
-    g_signal_connect_swapped(resultDlg, "response", G_CALLBACK(gtk_widget_destroy), resultDlg);
-    gtk_widget_show_all(resultDlg);
-
-    delete cd;
-    return FALSE;
-}
-
-} // namespace
 
 
 SaveJob::SaveJob(Control* control, std::function<void(bool)> callback):
@@ -232,60 +163,21 @@ auto SaveJob::save() -> bool {
     }
 
     // ---- COBBLE CLOUD SYNC ----
-    // save() runs on BlockingJob worker thread — GTK main loop is still live.
-    // We use g_idle_add + std::promise/future to safely orchestrate UI updates.
+    // Delegate to the industry-grade native sync engine which safely handles
+    // background threads, relative paths, and UI spinners without shell injection.
     std::string filePath = target.string();
     std::string fileName = target.filename().string();
 
     // Guard: only sync genuine user saves.
-    // Skip autosaves (.autosave.xopp), backups (.xopp~), and anything
-    // that is not a plain .xopp file.
     bool isGenuineSave =
         fileName.size() >= 5 &&
         fileName.substr(fileName.size() - 5) == ".xopp" &&
         fileName.find(".autosave") == std::string::npos &&
         fileName.find('~') == std::string::npos;
 
-    if (!isGenuineSave) {
-        return true;  // local save succeeded; skip cloud upload silently
+    if (isGenuineSave) {
+        xoj::cobble::CobbleSyncEngine::getInstance().uploadFileAsync(filePath, this->control);
     }
-
-    const std::string supabaseUrl = "https://rcztclkkcpxsosptdgwe.supabase.co";
-    const std::string anonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjenRjbGtrY3B4c29zcHRkZ3dlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5MjUxMzYsImV4cCI6MjA5ODUwMTEzNn0.HFdE91Yrc6__cnT3sR2mePPJTYPj6wVSfObUNXJ_gQM";
-
-    GtkWindow* parentWin = control->getGtkWindow();
-
-    // Step 1: Show spinner on GTK main thread. Wait until it appears.
-    auto* sd = new CobbleSpinnerData{parentWin, {}};
-    auto spinnerFuture = sd->dlgPromise.get_future();
-    g_idle_add(cobble_show_spinner, sd);
-    GtkWidget* spinnerDlg = spinnerFuture.get();  // blocks worker until dialog exists
-
-    // Step 2: Run curl uploads synchronously on this worker thread (UI stays live).
-    // --fail makes curl exit non-zero on any HTTP 4xx/5xx so we detect real failures.
-    std::string uploadCmd =
-        "curl -s --fail -X POST \"" + supabaseUrl + "/storage/v1/object/cobble_docs/" + fileName + "\" "
-        "-H \"Authorization: Bearer " + anonKey + "\" "
-        "-H \"apikey: " + anonKey + "\" "
-        "-H \"Content-Type: application/octet-stream\" "
-        "-H \"x-upsert: true\" "
-        "--data-binary \"@" + filePath + "\"";
-    int r1 = std::system(uploadCmd.c_str());
-
-    std::string jsonPayload =
-        "{\\\"filename\\\": \\\"" + fileName + "\\\", \\\"last_updated\\\": \\\"now()\\\"}";
-    std::string metaCmd =
-        "curl -s --fail -X POST \"" + supabaseUrl + "/rest/v1/cobble_metadata\" "
-        "-H \"Authorization: Bearer " + anonKey + "\" "
-        "-H \"apikey: " + anonKey + "\" "
-        "-H \"Content-Type: application/json\" "
-        "-H \"Prefer: resolution=merge-duplicates\" "
-        "-d \"" + jsonPayload + "\"";
-    int r2 = std::system(metaCmd.c_str());
-
-    // Step 3: Close spinner and show result on GTK main thread.
-    bool syncOk = (r1 == 0 && r2 == 0);
-    g_idle_add(cobble_show_result, new CobbleResultData{spinnerDlg, parentWin, syncOk});
     // ---------------------------
 
     return true;

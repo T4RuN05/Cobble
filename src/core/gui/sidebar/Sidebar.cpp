@@ -19,6 +19,7 @@
 #include "pdf/base/XojPdfPage.h"                     // for XojPdfPageSPtr
 #include "previews/layer/SidebarPreviewLayers.h"     // for SidebarPreviewL...
 #include "previews/page/SidebarPreviewPages.h"       // for SidebarPreviewP...
+#include "cobble/SidebarCobbleWorkspace.h"           // for Cobble Workspace
 #include "util/Util.h"                               // for npos
 #include "util/glib_casts.h"                         // for closure_notify_cb
 #include "util/gtk4_helper.h"                        //
@@ -40,6 +41,7 @@ void Sidebar::initTabs(GtkWidget* sidebarContents) {
     addTab(std::make_unique<SidebarPreviewPages>(this->control));
     addTab(std::make_unique<SidebarPreviewLayers>(this->control, false));
     addTab(std::make_unique<SidebarPreviewLayers>(this->control, true));
+    addTab(std::make_unique<xoj::cobble::SidebarCobbleWorkspace>(this->control));
 
     // Init toolbar with icons
 

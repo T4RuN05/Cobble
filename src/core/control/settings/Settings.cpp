@@ -106,7 +106,7 @@ void Settings::loadDefault() {
 
     this->menubarVisible = true;
 
-    this->autoloadMostRecent = false;
+    this->autoloadMostRecent = true;
     this->autoloadPdfXoj = true;
 
     this->stylusCursorType = STYLUS_CURSOR_DOT;
@@ -423,6 +423,8 @@ void Settings::parseItem(xmlDocPtr doc, xmlNodePtr cur) {
         this->lastOpenPath = fs::path(xoj::util::utf8(value));
     } else if (xmlStrcmp(name, reinterpret_cast<const xmlChar*>("lastImagePath")) == 0) {
         this->lastImagePath = fs::path(xoj::util::utf8(value));
+    } else if (xmlStrcmp(name, reinterpret_cast<const xmlChar*>("cobbleWorkspacePath")) == 0) {
+        this->cobbleWorkspacePath = fs::path(xoj::util::utf8(value));
     } else if (xmlStrcmp(name, reinterpret_cast<const xmlChar*>("edgePanSpeed")) == 0) {
         this->edgePanSpeed = tempg_ascii_strtod(reinterpret_cast<const char*>(value), nullptr);
     } else if (xmlStrcmp(name, reinterpret_cast<const xmlChar*>("edgePanMaxMult")) == 0) {
@@ -1022,6 +1024,7 @@ void Settings::save() {
     saveProperty("lastSavePath", char_cast(this->lastSavePath.u8string().c_str()), root);
     saveProperty("lastOpenPath", char_cast(this->lastOpenPath.u8string().c_str()), root);
     saveProperty("lastImagePath", char_cast(this->lastImagePath.u8string().c_str()), root);
+    saveProperty("cobbleWorkspacePath", char_cast(this->cobbleWorkspacePath.u8string().c_str()), root);
 
     SAVE_DOUBLE_PROP(edgePanSpeed);
     SAVE_DOUBLE_PROP(edgePanMaxMult);
@@ -1711,7 +1714,7 @@ void Settings::setScrollbarHideType(ScrollbarHideType type) {
     save();
 }
 
-auto Settings::isAutoloadMostRecent() const -> bool { return this->autoloadMostRecent; }
+auto Settings::isAutoloadMostRecent() const -> bool { return true; } // Forced true for Cobble
 
 void Settings::setAutoloadMostRecent(bool load) {
     if (this->autoloadMostRecent == load) {
@@ -1963,6 +1966,15 @@ void Settings::setLastImagePath(const fs::path& path) {
 }
 
 auto Settings::getLastImagePath() const -> fs::path const& { return this->lastImagePath; }
+
+void Settings::setCobbleWorkspacePath(const fs::path& path) {
+    if (this->cobbleWorkspacePath == path) {
+        return;
+    }
+    this->cobbleWorkspacePath = path;
+}
+
+auto Settings::getCobbleWorkspacePath() const -> fs::path const& { return this->cobbleWorkspacePath; }
 
 void Settings::setZoomStep(double zoomStep) {
     if (this->zoomStep == zoomStep) {

@@ -429,6 +429,15 @@ void on_startup(GApplication* application, XMPtr app_data) {
     initResourcePath(app_data->gladePath.get(), "ui/xournalpp.css", false);
     initResourcePath(app_data->gladePath.get(), "ui/toolbar.ini", false);
 
+    fs::path iconPath = findResourcePath("ui/cobble_logo_white.svg") / "cobble_logo_white.svg";
+    if (fs::exists(iconPath)) {
+        GError* err = nullptr;
+        if (!gtk_window_set_default_icon_from_file(iconPath.string().c_str(), &err)) {
+            g_warning("Could not load application icon: %s", err->message);
+            g_error_free(err);
+        }
+    }
+
     app_data->control = std::make_unique<Control>(application, app_data->gladePath.get(), app_data->disableAudio);
 
     auto& globalLatexTemplatePath = app_data->control->getSettings()->latexSettings.globalTemplatePath;

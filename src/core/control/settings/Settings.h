@@ -215,6 +215,9 @@ public:
     void setLastImagePath(const fs::path& p);
     fs::path const& getLastImagePath() const;
 
+    void setCobbleWorkspacePath(const fs::path& p);
+    fs::path const& getCobbleWorkspacePath() const;
+
     void setMainWndSize(int width, int height);
     void setMainWndMaximized(bool max);
     int getMainWndWidth() const;
@@ -782,6 +785,11 @@ private:
      *  The last "insert image" folder
      */
     fs::path lastImagePath;
+
+    /**
+     *  The Cobble workspace folder
+     */
+    fs::path cobbleWorkspacePath;
 
     /**
      * The last used font
