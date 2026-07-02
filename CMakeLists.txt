@@ -21,7 +21,7 @@ endif()
 ## Project related Variables
 ## Also update changelog in debian folder!
 project(xournalpp
-        VERSION 1.0.0
+        VERSION 1.0.1
         DESCRIPTION "Cobble - Cloud-enabled note-taking software"
         HOMEPAGE_URL "https://github.com/T4RuN05/Cobbel"
         LANGUAGES CXX C)
