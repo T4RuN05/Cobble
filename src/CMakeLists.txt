@@ -122,14 +122,11 @@ if (WIN32)
   unset(ICON_DEPS)
   add_custom_target(xournalpp_icon DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/win32/xournalpp.ico)
   add_dependencies(xournalpp xournalpp_icon)
-  add_dependencies(xournalpp-wrapper xournalpp_icon)
   
   # windows specific source files
   target_sources(xournalpp PRIVATE exe/win32/console.cpp)
-  target_sources(xournalpp-wrapper PRIVATE exe/win32/console.cpp)
   if (MSVC)
     target_sources(xournalpp PRIVATE exe/win32/gui_main.cpp)
-    target_sources(xournalpp-wrapper PRIVATE exe/win32/gui_main.cpp)
   endif()
   
   # windows specific appinfo
@@ -141,15 +138,11 @@ if (WIN32)
 
   configure_file(exe/win32/xpp.rc.in ${CMAKE_CURRENT_BINARY_DIR}/win32/xpp.rc)
   target_sources(xournalpp PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/win32/xpp.rc)
-  target_sources(xournalpp-wrapper PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/win32/xpp.rc)
 endif ()
 # Until here
 ################################
 
-install(TARGETS xournalpp-wrapper
-        RUNTIME DESTINATION bin
-        COMPONENT xournalpp-wrapper
-        )
+
 install(TARGETS xournalpp
         RUNTIME DESTINATION bin
         COMPONENT xournalpp
